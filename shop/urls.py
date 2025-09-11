@@ -20,5 +20,5 @@ from django.urls import path
 from shop import views
 app_name="shop"
 urlpatterns = [
-    path('',views.CategoryView().as_view(),name="categories")
+    path('', views.CategoryView.as_view(), name="categories"),
 ]
