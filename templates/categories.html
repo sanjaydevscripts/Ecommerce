@@ -72,13 +72,12 @@
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="shop-cat-box">
                         <img src="{{i.image.url}}" height="300px" width="100%" alt="" />
-                        <a class="btn hvr-hover" href="#">{{i.name}}</a>
+                        <a class="btn hvr-hover" href="{% url 'shop:products' i.id %}">{{i.name}}</a>
                     </div>
                 </div>
                 {% endfor %}
                 </div>
             </div>
         </div>
-    </div>
     <!-- End Categories -->
 {% endblock %}

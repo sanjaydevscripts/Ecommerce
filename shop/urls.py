@@ -21,4 +21,5 @@ from shop import views
 app_name="shop"
 urlpatterns = [
     path('', views.CategoryView.as_view(), name="categories"),
+    path('products/<int:i>',views.Product.as_view(),name="products")
 ]
