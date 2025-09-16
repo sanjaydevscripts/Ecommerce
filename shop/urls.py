@@ -21,5 +21,12 @@ from shop import views
 app_name="shop"
 urlpatterns = [
     path('', views.CategoryView.as_view(), name="categories"),
-    path('products/<int:i>',views.Product.as_view(),name="products")
+    path('register/', views.Register.as_view(), name="register"),
+    path('login/', views.Userlogin.as_view(), name="login"),
+    path('logout/', views.Userlogout.as_view(), name="logout"),
+    path('products/<int:i>',views.Productview.as_view(),name="products"),
+    path('productdetail/<int:i>',views.ProductDetail.as_view(),name="productdetail"),
+    path('addcategory>',views.AddCategory.as_view(),name="addcategory"),
+    path('addproduct',views.AddProduct.as_view(),name="addproduct"),
+    path('addstock/<int:i>',views.AddStock.as_view(),name="addstock"),
 ]

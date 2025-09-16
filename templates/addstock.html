@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="d-flex align-items-center justify-content-center mb-5">
+    <div class="cotainer w-75">
+    <h1 class="text-center mb-3">Add Stock</h1>
+     <form method="post"  enctype="multipart/form-data" class="w-75 mx-auto">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="ADD" class="btn btn-primary w-100 mt-3">
+     </form>
+</div>
+</div>
+
+{% endblock %}
