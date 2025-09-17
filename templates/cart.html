@@ -58,10 +58,10 @@
                                     </td>
                                     <td >
                                         <a href="{% url 'cart:addtocart' i.product.id %}">
-                                            <i class="fa-solid fa-plus"></i>
-                                            <i class="fa-solid fa-minus"></i>
-                                            <i class="fas fa-times"></i>
-								</a>
+                                            <i class="fa-solid fa-plus"></i></a>
+                                            <a href="{% url 'cart:decrement' i.product.id %}">
+                                                <i class="fa-solid fa-minus"></i></a>
+                                                <a href="{% url 'cart:deleteitem' i.product.id %}"><i class="fas fa-times"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}

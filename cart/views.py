@@ -20,6 +20,25 @@ class AddtoCart(View):
 
         return redirect('cart:cartview')
 
+class DecrementQuantity(View):
+    def get(self,request,i):
+        u=request.user
+        p=Product.objects.get(id=i)
+        c=Cart.objects.get(user=u,product=p)
+        if c.quantity>0:
+            c.quantity-=1
+            c.save()
+        else:
+            c.quantity=0
+        return redirect('cart:cartview')
+
+class DeleteItem(View):
+    def get(self,request,i):
+        u=request.user
+        p=Product.objects.get(id=i)
+        c=Cart.objects.get(user=u,product=p)
+        c.delete()
+        return redirect('cart:cartview')
 
 class CartView(View):
     def get(self,request):
