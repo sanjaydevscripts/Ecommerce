@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+     <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Shop Detail</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Shop Detail </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start Shop Detail  -->
+    {% for product in products %}
+<div class="shop-detail-box-main">
+    <div class="row">
+        <div class="col-xl-5">
+            <img src="{{ product.image.url }}" height="400px" width="100%">
+        </div>
+        <div class="col-xl-7">
+            <h2>{{ product.name }}</h2>
+            <h5>{{ product.price }}</h5>
+            <p>{% if product.stock > 0 %}{{ product.stock }} available{% endif %}</p>
+            <p>{{ product.description }}</p>
+
+            {% if user.is_superuser %}
+                <a class="btn hvr-hover" href="{% url 'shop:addstock' product.id %}">Add stock</a>
+            {% else %}
+                {% if product.stock > 0 %}
+                    <a class="btn hvr-hover" href="{% url 'cart:addtocart' %}">Add to cart</a>
+                {% else %}
+                    <a class="btn hvr-hover" href="#">Out Of Stock</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% empty %}
+    <p>No products found.</p>
+{% endfor %}
+
+{% endblock %}

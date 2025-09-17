@@ -94,6 +94,15 @@ class AddStock(View):
             return redirect('shop:categories')
 
 
+from django.db.models import Q
+class Search(View):
+    def post(self,request):
+        query=request.POST['q']
+        p=Product.objects.filter(Q(name__icontains=query) | Q(price__icontains=query))
+        return render(request,'search.html',{'products':p})
+
+
+
 
 
 

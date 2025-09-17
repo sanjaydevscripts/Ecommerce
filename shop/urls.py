@@ -29,4 +29,5 @@ urlpatterns = [
     path('addcategory>',views.AddCategory.as_view(),name="addcategory"),
     path('addproduct',views.AddProduct.as_view(),name="addproduct"),
     path('addstock/<int:i>',views.AddStock.as_view(),name="addstock"),
+    path('search', views.Search.as_view(), name="search"),
 ]
