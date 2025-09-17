@@ -54,7 +54,7 @@
                             {% else %}
                             <div class="cart-and-bay-btn">
                                 {% if product.stock > 0 %}
-								<a class="btn hvr-hover" data-fancybox-close="" href="{% url 'cart:addtocart'%} ">Add to cart</a>
+								<a class="btn hvr-hover" data-fancybox-close="" href="{% url 'cart:addtocart' product.id %} ">Add to cart</a>
                                 {% else %}
                                 <a class="btn hvr-hover" data-fancybox-close="" href="#">Out Of Stock</a>
                                 {% endif %}
