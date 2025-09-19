@@ -6,6 +6,8 @@ from shop.models import Product
 from cart.models import Cart
 
 
+
+
 class AddtoCart(View):
     def get(self,request,i):
         p=Product.objects.get(id=i)
@@ -49,6 +51,58 @@ class CartView(View):
         return render(request, 'cart.html',{'cart':c,'total':total})
 
 
+from cart.forms import OrderForm
+
+def check_stock(c):
+    stock=True
+    for i in c:
+        if i.product.stock<i.quantity:
+            stock=False
+            break
+        else:
+            stock=True
+    return stock
+
+
+import razorpay
 class CheckOut(View):
     def get(self,request):
-        return render(request,'checkout.html')
+        form_instance=OrderForm()
+        return render(request,'checkout.html',{'form':form_instance})
+
+    def post(self, request):
+        form_instance = OrderForm(request.POST)
+        u=request.user
+        if form_instance.is_valid():
+            # data=form_instance.cleaned_data
+            # print(data)
+            o=form_instance.save(commit=False)
+            o.user=u
+            o.save()
+
+            c=Cart.objects.filter(user=u)
+            stock = check_stock(c)
+            if stock:
+                total=0
+                for i in c:
+                    total+=i.quantity * i.product.price
+
+                if o.payment_method=="online":
+                    # rezopay client connection
+                    client=razorpay.Client(auth=('rzp_test_RJOTa18jmnSyYc','jC1EgRTw7Na85oUrC2yvNESQ'))
+                    #replace order
+                    response_payment=client.order.create(dict(amount=total,currency='INR'))
+                    print(response_payment)
+                    order_id=response_payment['id']
+                    o.order_id=order_id
+                    o.amount=total
+                    o.save()
+                    return render(request,'payment.html')
+                else:
+                    pass
+            else:
+                print("Items not available")
+
+            return render(request, 'checkout.html', {'form': OrderForm()})
+
+
