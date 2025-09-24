@@ -62,7 +62,11 @@ class ProductDetail(View):
         p=Product.objects.get(id=i)
         return render(request, 'productdetail.html',{'product':p} )
 
-class AddCategory(View):
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+class AddCategory(LoginRequiredMixin,UserPassesTestMixin,View):
+    def test_func(self):
+        return self.request.user.is_superuser
+
     def get(self,request):
         form_instance=AddCategoryForm()
         return render(request,'addcategory.html',{'form':form_instance})
@@ -71,6 +75,8 @@ class AddCategory(View):
         if form_instance.is_valid():
             form_instance.save()
             return redirect('shop:categories')
+
+
 class AddProduct(View):
     def get(self,request):
         form_instance = AddProductForm()
@@ -83,11 +89,11 @@ class AddProduct(View):
 
 class AddStock(View):
     def get(self,request,i):
-        p=Product.objects.get(id=1)
+        p=Product.objects.get(id=i)
         form_instance = AddStockForm(instance=p)
         return render(request, 'addstock.html', {'form': form_instance})
     def post(self,request,i):
-        p = Product.objects.get(id=1)
+        p = Product.objects.get(id=i)
         form_instance = AddStockForm(request.POST,instance=p)
         if form_instance.is_valid():
             form_instance.save()
@@ -95,7 +101,7 @@ class AddStock(View):
 
 
 from django.db.models import Q
-class Search(View):
+class Search(View,):
     def post(self,request):
         query=request.POST['q']
         p=Product.objects.filter(Q(name__icontains=query) | Q(price__icontains=query))

@@ -3,13 +3,13 @@
 {% block content %}
 <div class="d-flex align-items-center justify-content-center mb-5">
     <div class="cotainer w-75">
-    <h1 class="text-center mb-3">Register page</h1>
-     <form method="post"  class="w-75 mx-auto">
+        <h1 class="text-center mb-3">Register page</h1>
+        <form method="post" class="w-75 mx-auto">
             {% csrf_token %}
             {{ form|crispy }}
             <input type="submit" value="Register" class="btn btn-primary w-100 mt-3">
-     </form>
-</div>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

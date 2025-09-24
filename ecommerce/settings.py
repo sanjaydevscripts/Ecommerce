@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles','shop','cart','crispy_forms','crispy_bootstrap5'
 ]
+
+LOGIN_URL="shop:login"
+
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 

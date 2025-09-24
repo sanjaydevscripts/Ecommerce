@@ -33,7 +33,8 @@ class Order(models.Model):
         return str(self.order_id)
 
 class Order_items(models.Model):
-    order=models.ForeignKey(Order,on_delete=models.CASCADE)
+    order=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='products')
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     quantity=models.IntegerField()
+
 

@@ -25,4 +25,6 @@ urlpatterns = [
     path('decrement/<int:i>',views.DecrementQuantity.as_view(),name="decrement"),
     path('deleteitem/<int:i>',views.DeleteItem.as_view(),name="deleteitem"),
     path('checkout/',views.CheckOut.as_view(),name="checkout"),
+    path('success/<i>',views.PaymentSuccess.as_view(),name="success"),
+    path('ordersummery/',views.OrderSummery.as_view(),name="ordersummery"),
 ]
